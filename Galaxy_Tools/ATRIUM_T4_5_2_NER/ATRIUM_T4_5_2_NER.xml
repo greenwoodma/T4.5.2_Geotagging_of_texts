@@ -16,10 +16,9 @@
 '$input'
 #if str($download_model) == "true"
 --download
-#else
+#end if
 -m
 '${model.fields.model_path}'
-#end if
 -o
 '$output']]></command>
   <inputs>

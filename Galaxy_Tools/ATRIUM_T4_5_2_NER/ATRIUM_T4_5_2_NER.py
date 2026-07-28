@@ -109,7 +109,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--model", "-m",
-        required=True
+        required=True,
         help="The spaCy model to use (should be en_deberta_v3_base_ner_historical_place)"
     )
 
