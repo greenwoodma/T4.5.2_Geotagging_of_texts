@@ -1,0 +1,59 @@
+<tool name="atrium_t4_5_2_ner" id="atrium_t_4_5_2_ner" version="1.0.0" profile="22.05">
+  <description>ATRIUM T4.5.2 NER Component</description>
+  <requirements>
+    <requirement version="3.12.13" type="package">python</requirement>
+    <requirement version="3.8.14" type="package">spacy</requirement>
+    <requirement version="1.4.0" type="package">spacy-transformers</requirement>
+    <requirement version="8.4.1" type="package">click</requirement>
+    <requirement version="2026.5.9" type="package">regex</requirement>
+    <requirement version="0.36.0" type="package">huggingface_hub</requirement>
+    <requirement version="4.53.2" type="package">transformers</requirement>
+  </requirements>
+  <version_command><![CDATA[echo "1.0.0"]]></version_command>
+  <command><![CDATA[python
+'$__tool_directory__/ATRIUM_T4_5_2_NER.py'
+-i
+'$input'
+#if str($download_model) == "true"
+--download
+#else
+-m
+'${model.fields.model_path}'
+#end if
+-o
+'$output']]></command>
+  <inputs>
+    <param name="input" type="data" optional="false" label="Input JSON file" help="" format="json" multiple="false"/>
+    <param name="model" type="select">
+            <options from_data_table="spacy_models">
+                <column name="value" index="0"/>
+                <column name="name" index="1"/>
+                <column name="lang" index="2"/>
+                <column name="version" index="3"/>
+                <column name="model_path" index="4"/>
+                <filter type="sort_by" column="1"/>
+            </options></param>
+      <!-- Test-only: download the selected model on the fly instead of using
+           a data-manager-installed model. Left "false" in production. -->
+      <param name="download_model" type="hidden" value="false"/>
+  </inputs>
+  <outputs>
+    <data name="output" format="json" label="json" hidden="false"/>
+  </outputs>
+  <tests>
+    <test>
+      <output name="output" value="output.json" compare="diff" lines_diff="0"/>
+      <param name="input" value="input.json"/>
+      <param name="download_model" value="true"/>
+      <param name="model" value="en_deberta_v3_base_ner_historical_place_0.0.0"/>
+    </test>
+  </tests>
+  <help><![CDATA[
+ Vocabulary-Driven Information Extraction as defined in Task 4.1.2 of the ATRIUM project.
+  ]]></help>
+  <citations>
+    <!-- leave the ToolFactory citation for now so we pass the linter -->
+    <citation type="doi">10.1093/bioinformatics/bts573</citation>
+  </citations>
+</tool>
+
