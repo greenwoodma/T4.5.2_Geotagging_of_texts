@@ -27,9 +27,10 @@
             <options from_data_table="spacy_models">
                 <column name="value" index="0"/>
                 <column name="name" index="1"/>
-                <column name="lang" index="2"/>
-                <column name="version" index="3"/>
-                <column name="model_path" index="4"/>
+                <column name="model" index="2"/>
+                <column name="lang" index="3"/>
+                <column name="version" index="4"/>
+                <column name="model_path" index="5"/>
                 <filter type="sort_by" column="1"/>
             </options></param>
       <!-- Test-only: download the selected model on the fly instead of using
